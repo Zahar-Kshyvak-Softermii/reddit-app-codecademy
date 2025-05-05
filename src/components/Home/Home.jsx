@@ -22,30 +22,39 @@ export default function Home() {
 
   const isImageUrl = (url) => /\.(jpg|jpeg|png|gif|webp)$/i.test(url);
 
+  if (isLoading) {
+    return (
+      <div className={styles.wrapper}>
+        <ClipLoader size={120} color="#ff4500" />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Popular posts</h1>
-      {isLoading && (
-        <div className={styles.wrapper}>
-          <ClipLoader size={120} color="#ff4500" />
-        </div>
-      )}
       {isError && (
         <p className={styles.error}>
           Sorry! The error has occurred, try reloading the page!
         </p>
       )}
-      <ul className={styles.list}>
-        {posts
-          .filter((post) => isImageUrl(post.data.url))
-          .map((post) => (
-            <Post
-              key={post.data.id}
-              title={post.data.title}
-              src={post.data.url}
-            />
-          ))}
-      </ul>
+      {posts.length > 0 && !isLoading ? (
+        <>
+          <h1 className={styles.title}>Posts</h1>
+          <ul className={styles.list}>
+            {posts
+              .filter((post) => isImageUrl(post.data.url))
+              .map((post) => (
+                <Post
+                  key={post.data.id}
+                  title={post.data.title}
+                  src={post.data.url}
+                />
+              ))}
+          </ul>
+        </>
+      ) : (
+        <p className={styles.error}>No posts found!</p>
+      )}
     </div>
   );
 }
