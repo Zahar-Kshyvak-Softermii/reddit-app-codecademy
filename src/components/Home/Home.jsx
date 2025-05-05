@@ -6,7 +6,7 @@ import {
   selectIsError,
   selectIsLoading,
 } from "../../api/posts/selectors";
-import { MagnifyingGlass } from "react-loader-spinner";
+import ClipLoader from "react-spinners/ClipLoader";
 import Post from "../Post/Post";
 import styles from "./Home.module.css";
 
@@ -27,13 +27,7 @@ export default function Home() {
       <h1 className={styles.title}>Popular posts</h1>
       {isLoading && (
         <div className={styles.wrapper}>
-          <MagnifyingGlass
-            visible={true}
-            height="120"
-            width="120"
-            glassColor="#c0efff"
-            color="#ff4500"
-          />
+          <ClipLoader size={120} color="#ff4500" />
         </div>
       )}
       {isError && (
@@ -41,21 +35,17 @@ export default function Home() {
           Sorry! The error has occurred, try reloading the page!
         </p>
       )}
-      {posts.length > 0 ? (
-        <ul className={styles.list}>
-          {posts
-            .filter((post) => isImageUrl(post.data.url))
-            .map((post) => (
-              <Post
-                key={post.data.id}
-                title={post.data.title}
-                src={post.data.url}
-              />
-            ))}
-        </ul>
-      ) : (
-        <p className={styles.error}>No posts found!</p>
-      )}
+      <ul className={styles.list}>
+        {posts
+          .filter((post) => isImageUrl(post.data.url))
+          .map((post) => (
+            <Post
+              key={post.data.id}
+              title={post.data.title}
+              src={post.data.url}
+            />
+          ))}
+      </ul>
     </div>
   );
 }
