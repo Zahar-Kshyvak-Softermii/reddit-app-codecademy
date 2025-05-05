@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: rgb(247, 247, 247);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 60%;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
